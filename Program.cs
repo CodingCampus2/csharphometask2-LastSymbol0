@@ -10,16 +10,11 @@ namespace HomeworkTemplate
             Func<Task2, string> TaskSolver = task =>
             {
                 var enUSCulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
-                const int halfPadding = Task2.Padding / 2;
+                string paddingFillerString = new string(task.DecorativeSign, Task2.Padding / 2);
 
-                FormattableString balanceMessage = $"{task.Balance:C}";
-                string balanceString = balanceMessage.ToString(enUSCulture);
-
-                balanceString = balanceString.PadLeft(halfPadding + balanceString.Length);
-                balanceString = balanceString.PadLeft(halfPadding + balanceString.Length, task.DecorativeSign);
-                balanceString = balanceString.PadRight(halfPadding + balanceString.Length);
-                balanceString = balanceString.PadRight(halfPadding + balanceString.Length, task.DecorativeSign);
-                return balanceString;
+                FormattableString balanceMessage = $"{paddingFillerString,-Task2.Padding}{task.Balance:C}{paddingFillerString,Task2.Padding}";
+                
+                return balanceMessage.ToString(enUSCulture);
             };
 
             Task2.CheckSolver(TaskSolver);
